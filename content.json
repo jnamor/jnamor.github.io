@@ -1,0 +1,330 @@
+{
+  "name": "Jordan Namor",
+  "role": "Ingénieur DevOps & Cloud",
+  "company": "Kikleo",
+  "github": "https://github.com/jnamor",
+  "intro": "Je construis et fais évoluer des infrastructures cloud, automatise les déploiements et outille l’exploitation. Mon fil conducteur : rendre les opérations plus reproductibles et les problèmes plus faciles à comprendre.",
+  "cases": [
+    {
+      "slug": "gitops-terraform",
+      "number": "01",
+      "category": "Infrastructure & livraison",
+      "title": "Passer des opérations manuelles à une infrastructure décrite dans Git.",
+      "short_title": "GitOps & infrastructure as code",
+      "summary": "Adapter une démarche GitOps entre AWS et OVH, puis introduire Terraform pour reproduire les environnements et rendre les écarts visibles.",
+      "outcome": "Des déploiements automatisés et des changements plus lisibles.",
+      "tags": [
+        "AWS / OVH",
+        "Kubernetes",
+        "FluxCD",
+        "Terraform"
+      ],
+      "context": [
+        "Chez Kikleo, une fondation Kubernetes et GitOps existait sur AWS. D’autres déploiements reposaient encore sur des opérations manuelles. L’enjeu était de faire évoluer la livraison tout en maintenant l’exploitation des environnements existants.",
+        "La création répétée d’environnements de test depuis les consoles cloud constituait un autre besoin : pouvoir préparer des opérations hors production et mieux maîtriser le cycle de vie des ressources."
+      ],
+      "role": [
+        "J’ai repris la responsabilité opérationnelle de l’infrastructure et des déploiements. J’ai construit un nouveau dispositif OVH et adapté la logique GitOps existante avec FluxCD et Helm.",
+        "J’ai introduit Terraform pour créer et détruire des environnements de test depuis le code, puis décrire progressivement l’existant. La fondation AWS initiale a été conçue par le directeur technique ; elle ne m’est pas attribuée."
+      ],
+      "actions": [
+        {
+          "title": "Réutiliser une logique éprouvée",
+          "text": "J’ai repris la démarche GitOps déjà utilisée sur AWS pour organiser les déploiements OVH par environnement. L’objectif était d’harmoniser les pratiques sans prétendre rendre les deux clouds identiques."
+        },
+        {
+          "title": "Préparer l’évolution à côté de l’existant",
+          "text": "J’ai préparé le nouveau dispositif en conservant l’ancien pendant cette phase. Cette approche décrit la préparation ; elle ne permet pas d’affirmer une bascule sans interruption."
+        },
+        {
+          "title": "Détecter avant de corriger",
+          "text": "La représentation progressive de l’infrastructure avec Terraform s’accompagne d’un contrôle quotidien des dérives signalées dans GitHub. La décision de conserver ou corriger un écart reste humaine, sans application automatique."
+        }
+      ],
+      "diagram": {
+        "label": "Deux pratiques complémentaires",
+        "tracks": [
+          {
+            "name": "Livrer",
+            "steps": [
+              "Configuration Git",
+              "FluxCD / Helm",
+              "Déploiements"
+            ]
+          },
+          {
+            "name": "Contrôler",
+            "steps": [
+              "Code Terraform",
+              "Détection des écarts",
+              "Décision humaine"
+            ]
+          }
+        ],
+        "caption": "Schéma de principe : il illustre les responsabilités des outils, pas l’architecture de l’entreprise."
+      },
+      "results": [
+        "Les déploiements OVH concernés sont désormais gérés par FluxCD à la place des opérations manuelles.",
+        "Terraform permet de reproduire des environnements de test et rend visibles des changements hors code pour les arbitrer."
+      ],
+      "measure": "Ces résultats sont rapportés dans mon retour d’expérience. Je ne publie pas de mesure de temps gagné ni de baisse du taux d’erreur. La couverture de toute l’infrastructure n’est pas revendiquée.",
+      "limits": "Décrire et déployer depuis Git ne démontre pas une restauration complète après sinistre. La détection des dérives est distincte de leur correction.",
+      "learning": "Ce cas met en évidence trois responsabilités différentes : décrire l’état souhaité, réconcilier les déploiements et décider du traitement d’un écart. Les confondre conduirait à promettre une automatisation plus large que celle réalisée.",
+      "retrospective": null,
+      "interview": [
+        "Comment préparer la bascule et son retour arrière ?",
+        "Comment décider si un écart Terraform doit être conservé ou corrigé ?",
+        "Quels tests permettraient de démontrer une reconstruction complète ?"
+      ]
+    },
+    {
+      "slug": "observabilite",
+      "number": "02",
+      "category": "Exploitation & diagnostic",
+      "title": "Donner aux équipes les moyens de comprendre ce qui se passe.",
+      "short_title": "Observabilité & diagnostic partagé",
+      "summary": "Prendre l’initiative d’une stack d’observabilité, ouvrir son usage aux développeurs et transformer des signaux en investigations utiles.",
+      "outcome": "Des développeurs autonomes pour consulter les métriques et les logs.",
+      "tags": [
+        "Prometheus",
+        "Grafana",
+        "Loki",
+        "CloudWatch"
+      ],
+      "context": [
+        "J’ai découvert la stack d’observabilité pendant ma formation et pris l’initiative de l’introduire chez Kikleo. Le directeur technique m’a conseillé Loki.",
+        "Les demandes d’investigation des développeurs ont ensuite fait apparaître un besoin d’autonomie. Les retours d’incidents ont aussi conduit à travailler les notifications et le suivi des ressources."
+      ],
+      "role": [
+        "J’ai installé et exploité la stack, mis des dashboards à disposition des développeurs et intégré sa gestion dans FluxCD. J’assure le diagnostic côté infrastructure et échange avec les développeurs sur les comportements applicatifs.",
+        "Les correctifs applicatifs restent attribués à leurs auteurs : dans un cas de diagnostic MongoDB, le développeur a créé les index et modifié les requêtes ou routes. Mon rôle portait sur l’investigation et le volet infrastructure."
+      ],
+      "actions": [
+        {
+          "title": "Installer, puis rendre reproductible",
+          "text": "Après une première installation par Helm, j’ai intégré la gestion de la stack dans FluxCD pour réduire les étapes manuelles de déploiement."
+        },
+        {
+          "title": "Rendre l’investigation accessible",
+          "text": "J’ai donné aux développeurs accès à Grafana et aux dashboards afin qu’ils puissent consulter directement les métriques et les logs, plutôt que dépendre de mon intervention pour chaque recherche."
+        },
+        {
+          "title": "Relier observation et action",
+          "text": "J’ai analysé les consommations et partagé mes constats avec les développeurs. Pour les ressources AWS hors Kubernetes, j’utilise une chaîne de notification CloudWatch, SNS, Lambda et Slack ; ce périmètre est distinct de l’alerting Kubernetes."
+        }
+      ],
+      "diagram": {
+        "label": "De la mesure à l’investigation",
+        "tracks": [
+          {
+            "name": "Comprendre",
+            "steps": [
+              "Métriques et logs",
+              "Dashboards",
+              "Diagnostic partagé"
+            ]
+          },
+          {
+            "name": "Être informé · AWS hors cluster",
+            "steps": [
+              "CloudWatch / SNS",
+              "Relais Lambda",
+              "Notification Slack"
+            ]
+          }
+        ],
+        "caption": "Chaînes fonctionnelles simplifiées ; aucun seuil, canal ou paramètre de déploiement interne n’est représenté."
+      },
+      "results": [
+        "Les développeurs consultent directement les logs et les métriques dans Grafana.",
+        "La gestion de la stack est intégrée à FluxCD et des notifications d’exploitation sont utilisées.",
+        "Les constats de consommation nourrissent un travail commun : diagnostic infrastructure de mon côté, corrections applicatives du côté des développeurs."
+      ],
+      "measure": "Il s’agit de résultats opérationnels rapportés. Aucun MTTR, taux de disponibilité ou pourcentage de performance global n’est présenté. Les captures et journaux de l’entreprise ne sont pas publiés.",
+      "limits": "Le déploiement d’une stack ne prouve ni une couverture exhaustive des services, ni la restauration de ses historiques. Je ne m’attribue pas l’écriture originale du relais Lambda, dont l’auteur n’est pas établi dans ce récit.",
+      "learning": "Le déploiement ne suffit pas : la capacité à observer un service, à être informé d’un problème et à partager le diagnostic fait partie de son exploitation.",
+      "retrospective": "Je mettrais plus tôt l’accent sur le monitoring, les alertes et la protection des ressources, plutôt que sur le déploiement seul. Un socle de départ réunissant ces points est une piste d’amélioration, pas un outil déjà livré.",
+      "interview": [
+        "Comment distinguer un symptôme, une cause et une correction ?",
+        "Quelle part du diagnostic relève de l’infrastructure ou de l’application ?",
+        "Comment tester la pertinence et la réception d’une alerte ?"
+      ]
+    },
+    {
+      "slug": "ressources",
+      "number": "03",
+      "category": "Capacité & choix techniques",
+      "title": "Adapter les ressources à l’usage, sans perdre de vue l’exploitation.",
+      "short_title": "Ressources & dimensionnement",
+      "summary": "Mettre en place des protections Kubernetes, accompagner l’élasticité et choisir les optimisations qui justifient leur complexité.",
+      "outcome": "Des mécanismes de capacité ajustés et des compromis explicités.",
+      "tags": [
+        "Kubernetes",
+        "Requests / limits",
+        "Autoscaling",
+        "ARM64"
+      ],
+      "context": [
+        "Dans une startup, les ressources et l’effort de maintenance doivent rester adaptés à l’usage. Les pointes de consommation et les besoins de placement des applications appelaient une réponse plus fine qu’un simple ajout permanent de capacité.",
+        "Ce travail associe observation, organisation des ressources et dialogue avec les développeurs. Il comprend aussi des adaptations de compatibilité pour faire évoluer les architectures de processeur."
+      ],
+      "role": [
+        "J’ai pris en charge les protections de ressources, l’organisation du placement et l’autoscaling des applications et des nœuds. J’ai également adapté des images et pipelines pour les architectures ARM64 et AMD64.",
+        "Je partage les consommations observées avec les développeurs ; leurs optimisations du code applicatif restent leurs contributions. Une baisse de consommation après un correctif n’est pas présentée comme mon développement."
+      ],
+      "actions": [
+        {
+          "title": "Protéger les services",
+          "text": "J’ai utilisé les métriques pour définir des demandes et limites de ressources, et travaillé le placement des applications. Le but est de mieux délimiter leur consommation et leurs interactions."
+        },
+        {
+          "title": "Distinguer deux formes d’élasticité",
+          "text": "J’ai mis en place l’adaptation du nombre de pods et l’ajout de nœuds quand les pods ne peuvent pas être placés. Ces mécanismes répondent à des problèmes différents ; aucun ne garantit la disponibilité de capacité chez le fournisseur."
+        },
+        {
+          "title": "Arbitrer la complexité",
+          "text": "J’ai simplifié le déploiement de Loki pour l’adapter à notre usage. J’ai étudié VictoriaMetrics puis conservé Prometheus : le gain attendu ne justifiait pas l’effort de migration à mes yeux. Cette alternative n’a pas été déployée."
+        }
+      ],
+      "diagram": {
+        "label": "Une démarche d’ajustement",
+        "tracks": [
+          {
+            "name": "Décider",
+            "steps": [
+              "Observer l’usage",
+              "Choisir un levier",
+              "Vérifier l’effet"
+            ]
+          }
+        ],
+        "caption": "Démarche de lecture du cas ; ce schéma ne décrit aucun dimensionnement interne."
+      },
+      "results": [
+        "Des requests/limits, une organisation du placement et des mécanismes d’autoscaling ont été mis en place.",
+        "Les adaptations multi-architecture ont accompagné l’évolution vers Graviton.",
+        "Loki fonctionne dans un mode simplifié ; Prometheus a été conservé après examen d’une alternative."
+      ],
+      "measure": "Le portfolio présente les changements techniques et leur objectif. Les résultats financiers, le dimensionnement et les métriques internes restent privés. Aucun gain global de disponibilité ou de capacité n’est déduit.",
+      "limits": "L’autoscaling peut ajouter des ressources ; il ne garantit pas une diminution de consommation. Simplifier un composant implique un compromis de redondance et d’élasticité. Un gain attendu pour une solution non retenue n’est pas un résultat réalisé.",
+      "learning": "L’outil le plus léger n’est pas toujours le meilleur changement : il faut considérer l’effort de migration, la maintenance et le comportement sous charge, en plus de l’empreinte attendue.",
+      "retrospective": "J’aurais traité plus tôt les priorités des services et les demandes/limites de ressources, avec le monitoring et les alertes, pour limiter les effets des incidents sur la production.",
+      "interview": [
+        "Quand agir sur le code, les pods ou les nœuds ?",
+        "Comment vérifier un réglage sous une charge représentative ?",
+        "Quand une migration ajoute-t-elle plus de complexité qu’elle n’apporte de bénéfice ?"
+      ]
+    },
+    {
+      "slug": "automatisation-iot",
+      "number": "04",
+      "category": "Linux & automatisation terrain",
+      "title": "Outiller les interventions sur un parc distant.",
+      "short_title": "Administration IoT avec Ansible",
+      "summary": "Développer et utiliser des jobs Ansible/SSH, avec des rapports d’exécution pour suivre les interventions sur les équipements.",
+      "outcome": "Un outillage d’administration développé et utilisé, avec suivi des exécutions.",
+      "tags": [
+        "Ansible / SSH",
+        "Linux",
+        "systemd",
+        "Python / Jinja2"
+      ],
+      "context": [
+        "L’administration d’équipements IoT distants implique des dépendances, services, configurations système et opérations de stockage. La connectivité et l’état des machines compliquent les interventions répétées.",
+        "L’objectif était d’outiller ces opérations et de disposer d’une lecture des exécutions par équipement et par tâche."
+      ],
+      "role": [
+        "J’ai développé et utilisé l’ensemble de jobs Ansible/SSH concerné, ainsi que les rapports d’exécution en Python/Jinja2.",
+        "Ces opérations s’inscrivent dans un travail avec les équipes techniques. Le cas ne m’attribue pas la conception du matériel ni tous les logiciels embarqués."
+      ],
+      "actions": [
+        {
+          "title": "Regrouper les opérations courantes",
+          "text": "Les jobs couvrent notamment les dépendances Python, le déploiement de services et timers systemd, ainsi que des opérations de configuration et de stockage."
+        },
+        {
+          "title": "Séparer l’exécution du compte rendu",
+          "text": "Le code distingue les jobs, la configuration du reporting et un module Python commun pour analyser les résultats et produire les rapports HTML avec Jinja2."
+        },
+        {
+          "title": "Tenir compte de l’état de l’équipement",
+          "text": "L’outillage comprend des contrôles de connectivité et d’état et, selon l’opération, des étapes de vérification, de reprise ou de nettoyage conditionnel. Leur présence dans le code ne démontre pas une couverture parfaite du parc."
+        }
+      ],
+      "diagram": {
+        "label": "Exécuter et rendre compte",
+        "tracks": [
+          {
+            "name": "Administration",
+            "steps": [
+              "Job Ansible / SSH",
+              "Intervention Linux",
+              "Rapport Python / Jinja2"
+            ]
+          }
+        ],
+        "caption": "Vue fonctionnelle générique, sans inventaire, adresse de machine ou procédure interne."
+      },
+      "results": [
+        "L’outillage a été développé et utilisé pour l’administration des équipements, au-delà des seules installations de bibliothèques.",
+        "Les rapports HTML apportent une lecture des exécutions par équipement et par tâche."
+      ],
+      "measure": "Le développement et l’usage sont confirmés par mon retour d’expérience. Aucun temps gagné, taux de succès global ou nombre d’interventions évitées n’est publié.",
+      "limits": "Les contrôles codés ne constituent pas une preuve d’idempotence complète, de retour arrière global ou de fiabilité de tout le parc. Le code et les inventaires de l’entreprise restent privés.",
+      "learning": "Ce cas distingue deux livrables : réaliser une opération et en rendre le résultat lisible. Un rapport d’exécution apporte du suivi ; il ne remplace pas la validation du comportement sur l’équipement.",
+      "retrospective": null,
+      "interview": [
+        "Comment traiter un équipement indisponible pendant une intervention ?",
+        "Quels critères permettraient de vérifier l’idempotence et la reprise ?",
+        "Quelles alternatives et quels compromis ont guidé l’outillage ?"
+      ]
+    }
+  ],
+  "practice": [
+    {
+      "title": "Construire & livrer",
+      "text": "Kubernetes sur AWS et OVH, FluxCD, Helm, Terraform, Docker et GitHub Actions. Faire évoluer les environnements et automatiser les opérations de livraison."
+    },
+    {
+      "title": "Observer & diagnostiquer",
+      "text": "Prometheus, Grafana, Loki et CloudWatch. Rapprocher les symptômes des métriques et des logs, puis travailler avec les développeurs sur les causes."
+    },
+    {
+      "title": "Automatiser & exploiter",
+      "text": "Python, Ansible/SSH, Linux et systemd. Outiller les interventions et produire des comptes rendus utiles à l’exploitation."
+    }
+  ],
+  "education": "Master DevOps & Cloud Engineer, Sup de Vinci ISI Paris, 2023–2025. Pratique de GitLab CI/CD, Azure/AKS et Terraform Azure ; déploiements avec Argo CD et GKE ; API et CLI en Go dans un projet d’étude. Ces usages de formation sont distincts de mon expérience professionnelle AWS/OVH.",
+  "experiments": [
+    {
+      "title": "Un lecteur d’actualités en ligne de commande",
+      "label": "Prototype personnel · Python",
+      "text": "Le dépôt Reddit News Monitor contient un mode de démonstration fictif hors ligne et des tests avec transport réseau simulé. L’accès réel à Reddit reste conditionné à son autorisation ; ce projet n’est pas présenté comme un service en production.",
+      "url": "https://github.com/jnamor/reddit-news-monitor",
+      "link": "Lire le code et les limites"
+    },
+    {
+      "title": "Mes explorations autour de la donnée",
+      "label": "Archives de formation · Data & IA · 2021–2023",
+      "text": "Mon ancien profil mettait en avant la recommandation de films et les chatbots. Les dépôts correspondants contiennent des notebooks de filtrage collaboratif et de chatbot PyTorch. Leur présence ne démontre ni un produit de production ni une contribution exclusive.",
+      "url": "https://github.com/jnamor/recommander-system",
+      "link": "Explorer le notebook de recommandation",
+      "second_url": "https://github.com/jnamor/chat-bot",
+      "second_link": "Voir le notebook de chatbot"
+    }
+  ],
+  "earlier_education": [
+    {
+      "period": "2021–2023",
+      "title": "Bachelor Data et Intelligence Artificielle",
+      "school": "Simplon Nancy",
+      "text": "Après une première année orientée développement data, je me suis spécialisé dans l’intelligence artificielle, notamment le développement de modèles et la classification. Les projets data et IA de 2021–2023 s’inscrivent dans ce parcours de formation."
+    },
+    {
+      "period": "2020–2021",
+      "title": "Formation Data Développeur",
+      "school": "Simplon Paris",
+      "text": "Une première année consacrée au développement data : collecte avec Scrapy, bases de données et requêtes. Cette étape constitue le début de mon parcours data de 2020 à 2023."
+    }
+  ]
+}
