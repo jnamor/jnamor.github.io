@@ -294,7 +294,7 @@
       "text": "Python, Ansible/SSH, Linux et systemd. Outiller les interventions et produire des comptes rendus utiles à l’exploitation."
     }
   ],
-  "education": "Master DevOps & Cloud Engineer, Sup de Vinci ISI Paris, 2023–2025. Pratique de GitLab CI/CD, Azure/AKS et Terraform Azure ; déploiements avec Argo CD et GKE ; API et CLI en Go dans un projet d’étude. Ces usages de formation sont distincts de mon expérience professionnelle AWS/OVH.",
+  "education": "Master DevOps et Cloud, Sup de Vinci ISI Paris, 2023–2025. Pratique de GitLab CI/CD, Azure/AKS et Terraform Azure ; déploiements avec Argo CD et GKE ; API et CLI en Go dans un projet d’étude. Ces usages de formation sont distincts de mon expérience professionnelle AWS/OVH.",
   "experiments": [
     {
       "title": "Un lecteur d’actualités en ligne de commande",

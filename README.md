@@ -22,6 +22,8 @@ Destination prévue après validation : dépôt public `jnamor/jnamor.github.io`
 
 Dans Settings → Pages, choisir **Deploy from a branch**, branche `main`, dossier `/docs`, puis Save. Les fichiers `.nojekyll` et les liens relatifs sont déjà prévus. Aucun domaine personnalisé n’est nécessaire.
 
+La publication depuis la racine de `main` est également prise en charge : le fichier `index.html` redirige vers `docs/`, qui contient le portfolio. L’adresse `https://jnamor.github.io/` reste ainsi utilisable avec les deux réglages.
+
 Références : [création du site](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site), [source de publication](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site), [limites de Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits).
 
 ## Historique et retour arrière
